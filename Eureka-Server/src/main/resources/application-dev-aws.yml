@@ -1,0 +1,44 @@
+server:
+  port: 8761
+  
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    preferSameZoneEureka: false
+  server:
+    enableSelfPreservation: false
+
+management:
+  metrics:
+    enable:
+      root: false
+      jvm: true
+    export:
+      influx:
+         uri: http://localhost:8086
+         db: InfluxDBDev
+         enabled: false
+# The interval at which metrics are sent to Influx. The default is 1 minute. 1m, 10s
+         step: 10s
+                
+spring:
+  application:
+    name: Eureka-Server
+         
+# log files are rotated every 10 MB so it will become eurekaServerLog.txt.1
+logging:
+  level:
+    reb: DEBUG
+    io:
+      micrometer: DEBUG
+    com:
+      netflix: WARN
+    org:
+      springframework:
+         cloud: WARN
+         web: WARN
+#        security: DEBUG 
+  file: logs/eurekaServerLog.txt
+#  pattern:
+#    console:

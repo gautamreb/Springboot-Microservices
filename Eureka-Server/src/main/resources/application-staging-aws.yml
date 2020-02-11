@@ -1,0 +1,49 @@
+server:
+  port: 8761
+
+# commenting out the EIP components as this is flaky sometimes the EIP does not get deassociated!!!
+# instead we use the bean in Java to set the EIP binder retry very long.
+eureka:
+  environment: staging
+  datacenter: cloud
+  shouldUseDns: false
+  client:
+    region: us-east-2
+    registerWithEureka: false
+    preferSameZoneEureka: false
+    availabilityZones:
+      us-east-2: us-east-2a,us-east-2b
+    fetchRegistry: false
+  server:
+    enableSelfPreservation: false
+
+management:
+  metrics:
+    enable:
+      root: false
+      jvm: true
+    export:
+      influx:
+         uri: http://influxdb.reb-staging1.com:8086
+         db: InfluxDBStaging1
+         enabled: true
+# The interval at which metrics are sent to Influx. The default is 1 minute. 1m, 10s
+         step: 1m
+          
+spring:
+  application:
+    name: Eureka-Server
+            
+# log files are rotated every 10 MB so it will become eurekaServerLog.txt.1
+logging:
+  level:
+    com:
+      netflix: 'WARN'
+    org:
+      springframework:
+         cloud: 'WARN'
+#         web: DEBUG
+#         security: DEBUG 
+  file: /tmp/eurekaServerLog.txt
+#  pattern:
+#    console:

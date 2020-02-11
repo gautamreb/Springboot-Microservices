@@ -1,0 +1,9 @@
+Prerequisites:
+- Target group created: Eureka-Server-Staging1-TG
+- Target group created: Eureka-Server-Prod1-TG
+
+service/ task definition creation:
+==================================
+ecs-cli compose --file aws-ecs-service-staging.yml --project-name eureka-server --cluster Staging1-Cluster --region us-east-2 service create --deployment-min-healthy-percent 50 --container-name eureka-server --container-port 8761 --role ecsServiceRole --target-group-arn arn:aws:elasticloadbalancing:us-east-2:575331706869:targetgroup/Eureka-Server-Staging1-TG/41be73e3e9388021
+
+ecs-cli compose --file aws-ecs-service-prod.yml --project-name eureka-server --cluster Prod1-Cluster --region us-east-2 service create --deployment-min-healthy-percent 50 --container-name eureka-server --container-port 8761 --role ecsServiceRole --target-group-arn arn:aws:elasticloadbalancing:us-east-2:575331706869:targetgroup/Eureka-Server-Prod1-TG/b26e63dbbe8bfc72

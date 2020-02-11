@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  eureka-server:
+    image: 575331706869.dkr.ecr.us-east-2.amazonaws.com/eureka-server:latest
+    container_name: eureka-server
+    mem_limit: 1408m
+    environment:
+      SPRING_ACTIVE_PROFILE: prod-aws
+      JAVA_OPTS: -Xmx1280m
+    ports:
+      - 0:8761
+    volumes:
+      - /home/ec2-user/es:/tmp

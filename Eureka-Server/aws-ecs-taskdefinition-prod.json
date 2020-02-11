@@ -1,0 +1,44 @@
+{
+  "containerDefinitions": [
+    {
+      "portMappings": [
+        {
+          "hostPort": 0,
+          "protocol": "tcp",
+          "containerPort": 8761
+        }
+      ],
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "SPRING_ACTIVE_PROFILE",
+          "value": "prod-aws"
+        },
+        {
+          "name": "JAVA_OPTS",
+          "value": "-Xmx1280m"
+        }
+      ],
+      "memory": 1408,
+      "image": "VAR-AWS-ECR/VAR-DOCKER-IMAGE:VAR-TAG-NAME",
+      "essential": true,
+      "mountPoints": [
+        {
+          "readOnly": false,
+          "containerPath": "/tmp",
+          "sourceVolume": "volume-0"
+        }
+      ],
+      "name": "VAR-AWS-CONTAINER-NAME"
+    }
+  ],
+  "family": "VAR-AWS-TASK-DEFINITION-FAMILY",
+  "volumes": [
+    {
+      "name": "volume-0",
+      "host": {
+        "sourcePath": "/home/ec2-user/es"
+      }
+    }
+  ]
+}
